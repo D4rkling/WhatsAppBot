@@ -1,3 +1,4 @@
+using Twilio.TwiML;
 using WhatsAppChatGPTBot;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -44,6 +45,20 @@ app.MapGet("/weatherforecast", () =>
     return forecast;
 })
 .WithName("GetWeatherForecast");
+
+app.MapPost("/api/messages", async (HttpRequest request, IOpenAIService openAIService) =>
+{
+    var form = await request.ReadFormAsync();
+    var body = form["Body"].ToString();
+    var from = form["From"].ToString();
+
+    var reply = await openAIService.GetReplyAsync(body);
+
+    var twilioResponse = new MessagingResponse();
+    twilioResponse.Message(reply);
+
+    return Results.Content(twilioResponse.ToString(), "text/xml");
+});
 
 app.Run();
 
