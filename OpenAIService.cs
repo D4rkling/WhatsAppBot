@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using System.Data;
 using System.Text;
 
 namespace WhatsAppChatGPTBot;
@@ -24,9 +25,13 @@ public class OpenAIService : IOpenAIService
 
         var request = new
         {
-            model = "gpt-4",
+            model = "gpt-4.1-mini",
             messages = new[] {
-            new { role = "user", content = message }
+            new { role = "user", content = message },
+           new {
+            role = "system",
+            content = "You are a friendly and knowledgeable AI assistant that helps users with clear, concise answers."
+        }
         }
         };
 
@@ -35,6 +40,7 @@ public class OpenAIService : IOpenAIService
         var result = await response.Content.ReadAsStringAsync();
 
         dynamic json = JsonConvert.DeserializeObject(result);
+        Console.WriteLine(json);
         return json.choices[0].message.content;
     }
 }

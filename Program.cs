@@ -51,7 +51,7 @@ app.MapPost("/api/messages", async (HttpRequest request, IOpenAIService openAISe
     var form = await request.ReadFormAsync();
     var body = form["Body"].ToString();
     var from = form["From"].ToString();
-
+    Console.WriteLine(body);
     var reply = await openAIService.GetReplyAsync(body);
 
     var twilioResponse = new MessagingResponse();
