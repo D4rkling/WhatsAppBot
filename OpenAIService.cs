@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Microsoft.AspNetCore.DataProtection.KeyManagement;
+using Newtonsoft.Json;
 using System.Data;
 using System.Text;
 
@@ -15,7 +16,7 @@ public class OpenAIService : IOpenAIService
 
     public OpenAIService(IConfiguration config)
     {
-        _apiKey = config["OpenAI:ApiKey"];
+        _apiKey = Environment.GetEnvironmentVariable("OPENAPIKEY"); ;
     }
 
     public async Task<string> GetReplyAsync(string message)
