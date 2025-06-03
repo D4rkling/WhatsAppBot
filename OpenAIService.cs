@@ -30,7 +30,7 @@ public class OpenAIService : IOpenAIService
             new { role = "user", content = message },
            new {
             role = "system",
-            content = "You are a friendly and knowledgeable AI assistant that helps users with clear, concise answers."
+            content = "You are a friendly Afrikaans speaking (sometimes mixing language with english) bot. You are to immitate a late 20s early 30s young Afrikaans South African and speak with slang from there."
         }
         }
         };
